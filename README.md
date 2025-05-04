@@ -43,7 +43,7 @@ To deploy on GitHub Pages:
 1. Push these files to a GitHub repository.
 2. Go to **Settings > Pages**.
 3. Choose the `main` branch and root `/` folder.
-4. Your app will be available at `https://marklkm.github.io/your-repo-name/`.
+4. Your app will be available at `https://marklkm.github.io/receipt-app/`.
 
 ## 📄 License
 
