@@ -13,18 +13,22 @@ window.onload = () => {
   };
 
   document.getElementById("receiptForm").onsubmit = saveReceipt;
+  document
+    .getElementById("filterDate")
+    .addEventListener("change", displayReceipts);
 };
 
 function saveReceipt(e) {
   e.preventDefault();
   const date = document.getElementById("receiptDate").value;
+  const notes = document.getElementById("receiptNotes").value;
   const file = document.getElementById("receiptImage").files[0];
 
   if (!file) return;
 
   const reader = new FileReader();
   reader.onload = () => {
-    const receipt = { date, image: reader.result };
+    const receipt = { date, notes, image: reader.result };
     const tx = db.transaction(["receipts"], "readwrite");
     tx.objectStore("receipts").add(receipt);
     tx.oncomplete = () => {
@@ -38,6 +42,7 @@ function saveReceipt(e) {
 function displayReceipts() {
   const list = document.getElementById("receiptList");
   list.innerHTML = "";
+  const filterDate = document.getElementById("filterDate").value;
 
   const tx = db.transaction("receipts", "readonly");
   const store = tx.objectStore("receipts");
@@ -45,18 +50,30 @@ function displayReceipts() {
   store.openCursor().onsuccess = (e) => {
     const cursor = e.target.result;
     if (cursor) {
-      const { date, image } = cursor.value;
-      const col = document.createElement("div");
-      col.className = "col-6 col-md-4";
-      col.innerHTML = `
-        <div class="card">
-          <img src="${image}" class="card-img-top" alt="Receipt">
-          <div class="card-body">
-            <p class="card-text">${new Date(date).toDateString()}</p>
-          </div>
-        </div>`;
-      list.appendChild(col);
+      const { id, date, notes, image } = cursor.value;
+
+      if (!filterDate || filterDate === date) {
+        const col = document.createElement("div");
+        col.className = "col-6 col-md-4 mb-3";
+        col.innerHTML = `
+          <div class="card">
+            <img src="${image}" class="card-img-top" alt="Receipt">
+            <div class="card-body">
+              <p class="card-text fw-bold">${new Date(date).toDateString()}</p>
+              <p class="card-text">${notes || ""}</p>
+              <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${id})">Delete</button>
+            </div>
+          </div>`;
+        list.appendChild(col);
+      }
       cursor.continue();
     }
   };
+}
+
+function deleteReceipt(id) {
+  const tx = db.transaction("receipts", "readwrite");
+  const store = tx.objectStore("receipts");
+  store.delete(id);
+  tx.oncomplete = () => displayReceipts();
 }

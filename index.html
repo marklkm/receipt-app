@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Receipt Organizer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="p-3">
-  <h1 class="mb-3">Receipt Organizer</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Receipt Organizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="p-3">
+    <h1 class="mb-3">Receipt Organizer</h1>
 
-  <form id="receiptForm">
+    <form id="receiptForm">
+      <div class="mb-3">
+        <label for="receiptDate" class="form-label">Date</label>
+        <input type="date" id="receiptDate" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="receiptNotes" class="form-label">Notes</label>
+        <input
+          type="text"
+          id="receiptNotes"
+          class="form-control"
+          placeholder="e.g., Groceries from Tesco"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="receiptImage" class="form-label"
+          >Take or Upload Receipt</label
+        >
+        <input
+          type="file"
+          id="receiptImage"
+          class="form-control"
+          accept="image/*"
+          capture="environment"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Save Receipt</button>
+    </form>
+
+    <hr />
     <div class="mb-3">
-      <label for="receiptDate" class="form-label">Date</label>
-      <input type="date" id="receiptDate" class="form-control" required>
+      <label for="filterDate" class="form-label">Filter by Date</label>
+      <input type="date" id="filterDate" class="form-control" />
     </div>
-    <div class="mb-3">
-      <label for="receiptImage" class="form-label">Take or Upload Receipt</label>
-      <input type="file" id="receiptImage" class="form-control" accept="image/*" capture="environment" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Save Receipt</button>
-  </form>
 
-  <hr>
-  <h2>Stored Receipts</h2>
-  <div id="receiptList" class="row g-2"></div>
+    <h2>Stored Receipts</h2>
+    <div id="receiptList" class="row g-2"></div>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
