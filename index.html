@@ -27,15 +27,12 @@
         />
       </div>
       <div class="mb-3">
-        <label for="receiptImage" class="form-label"
-          >Take or Upload Receipt</label
-        >
+        <label for="receiptImage" class="form-label">Upload Receipt</label>
         <input
           type="file"
           id="receiptImage"
           class="form-control"
           accept="image/*"
-          capture="environment"
           required
         />
       </div>
@@ -48,17 +45,14 @@
       <input type="date" id="filterDate" class="form-control" />
     </div>
 
+    <button class="btn btn-success mb-3" onclick="exportCSV()">
+      Download CSV
+    </button>
+
     <h2>Stored Receipts</h2>
     <div id="receiptList" class="row g-2"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script>
-      const supabase = supabase.createClient(
-        "https://vbufnecmjoerzlahcnht.supabase.co",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZidWZuZWNtam9lcnpsYWhjbmh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzODMxODAsImV4cCI6MjA2MTk1OTE4MH0.lHLANF1g_1q8ulUDed6moE2axvtLKTF9GCDR8YHkl7s"
-      );
-    </script>
-
+    <!-- ✅ Moved script to end of body -->
     <script src="script.js"></script>
   </body>
 </html>

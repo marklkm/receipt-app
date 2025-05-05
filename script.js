@@ -1,6 +1,6 @@
 let db;
 
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
   const request = indexedDB.open("receiptDB", 1);
   request.onerror = () => alert("Database failed to open");
   request.onsuccess = () => {
@@ -16,7 +16,7 @@ window.onload = () => {
   document
     .getElementById("filterDate")
     .addEventListener("change", displayReceipts);
-};
+});
 
 function saveReceipt(e) {
   e.preventDefault();
@@ -51,7 +51,6 @@ function displayReceipts() {
     const cursor = e.target.result;
     if (cursor) {
       const { id, date, notes, image } = cursor.value;
-
       if (!filterDate || filterDate === date) {
         const col = document.createElement("div");
         col.className = "col-6 col-md-4 mb-3";
@@ -59,8 +58,8 @@ function displayReceipts() {
           <div class="card">
             <img src="${image}" class="card-img-top" alt="Receipt">
             <div class="card-body">
-              <p class="card-text fw-bold">${new Date(date).toDateString()}</p>
-              <p class="card-text">${notes || ""}</p>
+              <p class="fw-bold">${new Date(date).toDateString()}</p>
+              <p>${notes || ""}</p>
               <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${id})">Delete</button>
             </div>
           </div>`;
@@ -76,4 +75,26 @@ function deleteReceipt(id) {
   const store = tx.objectStore("receipts");
   store.delete(id);
   tx.oncomplete = () => displayReceipts();
+}
+
+function exportCSV() {
+  const tx = db.transaction("receipts", "readonly");
+  const store = tx.objectStore("receipts");
+  const rows = [["Date", "Notes"]];
+
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { date, notes } = cursor.value;
+      rows.push([date, notes || ""]);
+      cursor.continue();
+    } else {
+      const csvContent = rows.map((e) => e.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "receipts.csv";
+      link.click();
+    }
+  };
 }
