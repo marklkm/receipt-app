@@ -10,26 +10,62 @@
     />
   </head>
   <body class="p-3">
-    <h1 class="mb-3">Receipt Organizer</h1>
+    <header>
+      <h1 class="mb-3">Receipt Organizer</h1>
+    </header>
 
-    <form id="receiptForm">
+    <main role="main">
+      <form id="receiptForm" aria-label="Add a new receipt">
+        <div class="mb-3">
+          <label for="receiptDate" class="form-label">Date</label>
+          <input type="date" id="receiptDate" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="receiptNotes" class="form-label">Notes</label>
+          <input
+            type="text"
+            id="receiptNotes"
+            class="form-control"
+            placeholder="e.g., Weekly groceries"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="receiptFolder" class="form-label">Store</label>
+          <select id="receiptFolder" class="form-control" required>
+            <option value="">Select store...</option>
+            <option value="Tesco">Tesco</option>
+            <option value="SuperValu">SuperValu</option>
+            <option value="M&S">M&S</option>
+            <option value="Woodies">Woodies</option>
+            <option value="Phelans Pharmacy">Phelans Pharmacy</option>
+            <option value="Haven Farmers">Haven Farmers</option>
+            <option value="Walmart">Walmart</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="receiptImage" class="form-label">Upload Receipt</label>
+          <input
+            type="file"
+            id="receiptImage"
+            class="form-control"
+            accept="image/*"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Receipt</button>
+      </form>
+
+      <hr />
       <div class="mb-3">
-        <label for="receiptDate" class="form-label">Date</label>
-        <input type="date" id="receiptDate" class="form-control" required />
+        <label for="filterDate" class="form-label">Filter by Date</label>
+        <input type="date" id="filterDate" class="form-control" />
       </div>
+
       <div class="mb-3">
-        <label for="receiptNotes" class="form-label">Notes</label>
-        <input
-          type="text"
-          id="receiptNotes"
-          class="form-control"
-          placeholder="e.g., Weekly groceries"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="receiptFolder" class="form-label">Store</label>
-        <select id="receiptFolder" class="form-control" required>
-          <option value="">Select store...</option>
+        <label for="filterFolder" class="form-label">Filter by Store</label>
+        <select id="filterFolder" class="form-control">
+          <option value="">All stores</option>
           <option value="Tesco">Tesco</option>
           <option value="SuperValu">SuperValu</option>
           <option value="M&S">M&S</option>
@@ -40,46 +76,14 @@
           <option value="Others">Others</option>
         </select>
       </div>
-      <div class="mb-3">
-        <label for="receiptImage" class="form-label">Upload Receipt</label>
-        <input
-          type="file"
-          id="receiptImage"
-          class="form-control"
-          accept="image/*"
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Save Receipt</button>
-    </form>
 
-    <hr />
-    <div class="mb-3">
-      <label for="filterDate" class="form-label">Filter by Date</label>
-      <input type="date" id="filterDate" class="form-control" />
-    </div>
+      <button class="btn btn-success mb-3" onclick="exportCSV()">
+        Download CSV
+      </button>
 
-    <div class="mb-3">
-      <label for="filterFolder" class="form-label">Filter by Store</label>
-      <select id="filterFolder" class="form-control">
-        <option value="">All stores</option>
-        <option value="Tesco">Tesco</option>
-        <option value="SuperValu">SuperValu</option>
-        <option value="M&S">M&S</option>
-        <option value="Woodies">Woodies</option>
-        <option value="Phelans Pharmacy">Phelans Pharmacy</option>
-        <option value="Haven Farmers">Haven Farmers</option>
-        <option value="Walmart">Walmart</option>
-        <option value="Others">Others</option>
-      </select>
-    </div>
-
-    <button class="btn btn-success mb-3" onclick="exportCSV()">
-      Download CSV
-    </button>
-
-    <h2>Stored Receipts</h2>
-    <div id="receiptList" class="row g-2"></div>
+      <h2>Stored Receipts</h2>
+      <div id="receiptList" class="row g-2" aria-live="polite"></div>
+    </main>
 
     <script src="script.js"></script>
   </body>
