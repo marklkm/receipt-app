@@ -23,8 +23,21 @@
           type="text"
           id="receiptNotes"
           class="form-control"
-          placeholder="e.g., Groceries from Tesco"
+          placeholder="e.g., Weekly groceries"
         />
+      </div>
+      <div class="mb-3">
+        <label for="receiptFolder" class="form-label">Store</label>
+        <select id="receiptFolder" class="form-control" required>
+          <option value="">Select store...</option>
+          <option value="Tesco">Tesco</option>
+          <option value="SuperValu">SuperValu</option>
+          <option value="M&S">M&S</option>
+          <option value="Woodies">Woodies</option>
+          <option value="Phelans Pharmacy">Phelans Pharmacy</option>
+          <option value="Haven Farmers">Haven Farmers</option>
+          <option value="Others">Others</option>
+        </select>
       </div>
       <div class="mb-3">
         <label for="receiptImage" class="form-label">Upload Receipt</label>
@@ -45,6 +58,20 @@
       <input type="date" id="filterDate" class="form-control" />
     </div>
 
+    <div class="mb-3">
+      <label for="filterFolder" class="form-label">Filter by Store</label>
+      <select id="filterFolder" class="form-control">
+        <option value="">All stores</option>
+        <option value="Tesco">Tesco</option>
+        <option value="SuperValu">SuperValu</option>
+        <option value="M&S">M&S</option>
+        <option value="Woodies">Woodies</option>
+        <option value="Phelans Pharmacy">Phelans Pharmacy</option>
+        <option value="Haven Farmers">Haven Farmers</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+
     <button class="btn btn-success mb-3" onclick="exportCSV()">
       Download CSV
     </button>
@@ -52,7 +79,6 @@
     <h2>Stored Receipts</h2>
     <div id="receiptList" class="row g-2"></div>
 
-    <!-- ✅ Moved script to end of body -->
     <script src="script.js"></script>
   </body>
 </html>

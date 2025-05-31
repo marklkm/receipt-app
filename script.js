@@ -16,19 +16,23 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("filterDate")
     .addEventListener("change", displayReceipts);
+  document
+    .getElementById("filterFolder")
+    .addEventListener("change", displayReceipts);
 });
 
 function saveReceipt(e) {
   e.preventDefault();
   const date = document.getElementById("receiptDate").value;
   const notes = document.getElementById("receiptNotes").value;
+  const folder = document.getElementById("receiptFolder").value;
   const file = document.getElementById("receiptImage").files[0];
 
-  if (!file) return;
+  if (!file || !folder) return;
 
   const reader = new FileReader();
   reader.onload = () => {
-    const receipt = { date, notes, image: reader.result };
+    const receipt = { date, notes, folder, image: reader.result };
     const tx = db.transaction(["receipts"], "readwrite");
     tx.objectStore("receipts").add(receipt);
     tx.oncomplete = () => {
@@ -43,6 +47,7 @@ function displayReceipts() {
   const list = document.getElementById("receiptList");
   list.innerHTML = "";
   const filterDate = document.getElementById("filterDate").value;
+  const filterFolder = document.getElementById("filterFolder").value;
 
   const tx = db.transaction("receipts", "readonly");
   const store = tx.objectStore("receipts");
@@ -50,8 +55,11 @@ function displayReceipts() {
   store.openCursor().onsuccess = (e) => {
     const cursor = e.target.result;
     if (cursor) {
-      const { id, date, notes, image } = cursor.value;
-      if (!filterDate || filterDate === date) {
+      const { id, date, notes, folder, image } = cursor.value;
+      const matchDate = !filterDate || filterDate === date;
+      const matchFolder = !filterFolder || filterFolder === folder;
+
+      if (matchDate && matchFolder) {
         const col = document.createElement("div");
         col.className = "col-6 col-md-4 mb-3";
         col.innerHTML = `
@@ -59,6 +67,7 @@ function displayReceipts() {
             <img src="${image}" class="card-img-top" alt="Receipt">
             <div class="card-body">
               <p class="fw-bold">${new Date(date).toDateString()}</p>
+              <p><strong>Store:</strong> ${folder}</p>
               <p>${notes || ""}</p>
               <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${id})">Delete</button>
             </div>
@@ -80,13 +89,13 @@ function deleteReceipt(id) {
 function exportCSV() {
   const tx = db.transaction("receipts", "readonly");
   const store = tx.objectStore("receipts");
-  const rows = [["Date", "Notes"]];
+  const rows = [["Date", "Store", "Notes"]];
 
   store.openCursor().onsuccess = function (e) {
     const cursor = e.target.result;
     if (cursor) {
-      const { date, notes } = cursor.value;
-      rows.push([date, notes || ""]);
+      const { date, notes, folder } = cursor.value;
+      rows.push([date, folder, notes || ""]);
       cursor.continue();
     } else {
       const csvContent = rows.map((e) => e.join(",")).join("\n");
