@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TSOPP – Study Strategies & Supports</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 2rem;
+      }
+      .form-container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        color: #003366;
+      }
+      label {
+        display: block;
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+      input[type="text"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      textarea {
+        resize: vertical;
+      }
+      button {
+        margin-top: 2rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #003366;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0055aa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>TSOPP – Study Strategies & Supports</h1>
+      <p>
+        This form helps you reflect on study strategies and identify any
+        supports you may need. Please complete it before your Occupational
+        Therapist (OT) meeting.
+      </p>
+
+      <h2>Section 1: About You</h2>
+      <label for="name">Name *</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="student-number">Student Number *</label>
+      <input type="text" id="student-number" name="student-number" required />
+
+      <label for="course">Course</label>
+      <input type="text" id="course" name="course" />
+
+      <label for="ot-contact">Preferred OT Contact (if known)</label>
+      <input type="text" id="ot-contact" name="ot-contact" />
+
+      <h2>Section 2: Tasks and Strategies</h2>
+      <label for="task1">Task Areas (Choose up to 5)</label>
+      <select id="task1" name="task1" multiple size="10">
+        <option>Managing / avoiding other substances</option>
+        <option>Getting to the exam hall</option>
+        <option>Using Computers</option>
+        <option>Managing alcohol intake</option>
+        <option>Managing flatmates/housemates</option>
+        <option>Managing any medication</option>
+        <option>Understanding the Library System</option>
+        <option>Managing Tutor system/Student Advisor system</option>
+        <option>Managing lab / placement environments</option>
+        <option>Managing shopping, housework etc</option>
+        <option>Staying and doing the exam</option>
+        <option>Doing practical work (i.e. on placement, in labs)</option>
+        <option>Communicating with my supervisor</option>
+        <option>Understanding the course structure and content</option>
+        <option>Deciding which question to do in exams</option>
+        <option>Managing anger</option>
+        <option>Managing finances/bills</option>
+        <option>Being on time for College (lectures, labs etc.)</option>
+        <option>Managing family</option>
+        <option>Understanding topic / question</option>
+        <option>Understanding the content of lectures</option>
+        <option>Communicating with people</option>
+        <option>Referencing</option>
+        <option>Managing nutritional needs</option>
+        <option>Working in groups</option>
+        <option>Getting involved in societies</option>
+        <option>
+          Understanding your departments expectations/standards (eg. Length,
+          style etc)
+        </option>
+        <option>Taking notes in class</option>
+        <option>Participating in discussion</option>
+        <option>Tolerating external distractions e.g. noise, light</option>
+        <option>Asking for help</option>
+        <option>Doing presentations</option>
+        <option>Switching off and relaxing</option>
+        <option>Writing study notes after class</option>
+        <option>Managing panic and “writer’s block”</option>
+        <option>Remembering what I have studied</option>
+        <option>Organising information</option>
+        <option>Receiving and coping with bad results</option>
+        <option>Concentrating during lectures and tutorials</option>
+        <option>Structuring and planning the essay or project</option>
+        <option>Being a perfectionist</option>
+        <option>Managing the stress before an exam</option>
+        <option>Knowing how best to study</option>
+        <option>Managing my free time</option>
+        <option>Getting enough good quality sleep</option>
+        <option>Being Confident</option>
+        <option>Getting down to writing</option>
+        <option>Achieving goals</option>
+        <option>Maintaining good mental stamina/endurance</option>
+        <option>Dealing with time pressures and deadlines</option>
+        <option>Managing anxiety</option>
+        <option>Maintaining concentration during study</option>
+        <option>Procrastination</option>
+        <option>Dealing with work overload</option>
+      </select>
+      <small
+        >Hold Ctrl (Windows) or Cmd (Mac) to select multiple options.</small
+      >
+
+      <label for="strategies1">My Strategies</label>
+      <textarea id="strategies1" name="strategies1" rows="3"></textarea>
+
+      <label for="support1">Support Needed</label>
+      <textarea id="support1" name="support1" rows="2"></textarea>
+
+      <label for="priority1">Priority Level</label>
+      <select id="priority1" name="priority1">
+        <option value="">-- Select Priority --</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <h2>Section 3: Extra Notes</h2>
+      <label for="extra-notes"
+        >Anything else you’d like to share with your OT?</label
+      >
+      <textarea id="extra-notes" name="extra-notes" rows="4"></textarea>
+
+      <button type="submit">Submit</button>
+    </div>
+  </body>
+</html>
